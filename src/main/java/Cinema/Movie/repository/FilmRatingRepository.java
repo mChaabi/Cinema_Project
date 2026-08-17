@@ -8,8 +8,8 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-import Cinema.Movie.dto.FilmRating;
-import Cinema.Movie.dto.FilmRatingPk;
+import Cinema.Movie.model.FilmRating;
+import Cinema.Movie.model.FilmRatingPk;
 
 @CrossOrigin("http://localhost:4200")
 @Repository

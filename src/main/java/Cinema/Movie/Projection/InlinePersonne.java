@@ -1,4 +1,4 @@
-package Cinema.Movie.dto;
+package Cinema.Movie.Projection;
 
 import java.sql.Date;
 import java.util.List;
