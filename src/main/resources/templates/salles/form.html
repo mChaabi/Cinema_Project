@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout}"> 
+<head>
+    <title>Salle Form</title>
+</head>
+<body>
+
+    <main layout:fragment="content" class="p-4">
+        <div class="container-fluid">
+            <h2 class="mb-4" th:text="${salle != null and salle.id != null ? 'Edit Cinema Hall' : 'Add New Cinema Hall'}">Add New Salle</h2>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-primary card-outline shadow-sm">
+                        <div class="card-header">
+                            <h3 class="card-title m-0">Cinema Hall Details</h3>
+                        </div>
+                        
+                        <form th:action="@{/admin/salles/save}" th:object="${salle}" method="post">
+                            <input type="hidden" th:field="*{id}">
+
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="form-label">Room Number (Numéro)</label>
+                                    <input type="number" th:field="*{numero}" class="form-control" placeholder="e.g. 1" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Capacity (Seats)</label>
+                                    <input type="number" th:field="*{capacite}" class="form-control" placeholder="e.g. 250" required>
+                                </div>
+                            </div>
+                            
+                            <div class="card-footer d-flex justify-content-between">
+                                <a th:href="@{/admin/salles}" class="btn btn-secondary">Cancel</a>
+                                <button type="submit" class="btn btn-success">Save Salle</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

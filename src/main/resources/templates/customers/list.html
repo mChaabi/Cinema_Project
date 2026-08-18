@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"> 
+<head>
+    <title>Customers List</title>
+</head>
+<body>
+
+    <main layout:fragment="content" class="p-4">
+        <div class="container-fluid">
+            <h2 class="mb-4">Customer Management</h2>
+            
+            <div class="card card-primary card-outline shadow-sm">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title m-0">Customers List</h3>
+                    <button class="btn btn-sm btn-primary ms-auto">Add New Customer</button>
+                </div>
+                
+                <div class="card-body">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 10%">ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="customer : ${customers}">
+                                <td th:text="${customer.id}">1</td>
+                                <td th:text="${customer.prenom}">John</td>
+                                <td th:text="${customer.nom}">Doe</td>
+                                <td th:text="${customer.email}">john.doe@example.com</td>
+                            </tr>
+                            
+                            <tr th:if="${#lists.isEmpty(customers)}">
+                                <td colspan="4" class="text-center text-muted">No customers found in the database.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

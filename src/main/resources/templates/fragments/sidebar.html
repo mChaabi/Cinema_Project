@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <!-- Sidebar Fragment -->
+    <aside th:fragment="sidebar" class="app-sidebar bg-body-secondary shadow-sm" data-bs-theme="dark">
+        <!-- Sidebar Brand -->
+        <div class="sidebar-brand">
+            <a th:href="@{/dashboard}" class="brand-link">
+                <i class="bi bi-film brand-image opacity-75 shadow rounded-circle"></i>
+                <span class="brand-text fw-light">eCine Admin</span>
+            </a>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <div class="sidebar-wrapper">
+            <nav class="mt-2">
+                <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
+                    
+                    <!-- Dashboard -->
+                    <li class="nav-item">
+                        <a th:href="@{/admin/dashboard}" class="nav-link">
+                            <i class="nav-icon bi bi-speedometer2"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-header">MANAGEMENT</li>
+                    
+                    <!-- Movies -->
+                    <li class="nav-item">
+                        <a th:href="@{/admin/films}" class="nav-link">
+                            <i class="nav-icon bi bi-camera-reels"></i>
+                            <p>Movies</p>
+                        </a>
+                    </li>
+
+                    <!-- Genres -->
+                    <li class="nav-item">
+                        <a th:href="@{/admin/genres}" class="nav-link">
+                            <i class="nav-icon bi bi-tags"></i>
+                            <p>Genres</p>
+                        </a>
+                    </li>
+
+                    <!-- Acteurs -->
+                    <li class="nav-item">
+                        <a th:href="@{/admin/acteurs}" class="nav-link">
+                            <i class="nav-icon bi bi-person-video2"></i>
+                            <p>Acteurs</p>
+                        </a>
+                    </li>
+                    
+					<!-- Realisateurs -->
+					<li class="nav-item">
+					    <a th:href="@{/admin/realisateurs}" class="nav-link">
+					        <i class="nav-icon bi bi-camera-reels"></i>
+					        <p>Réalisateurs</p>
+					    </a>
+					</li>
+
+                    <!-- Salles -->
+                    <li class="nav-item">
+                        <a th:href="@{/admin/salles}" class="nav-link">
+                            <i class="nav-icon bi bi-door-open"></i>
+                            <p>Salles</p>
+                        </a>
+                    </li>
+
+                    <!-- Séances -->
+                    <li class="nav-item">
+                        <a th:href="@{/admin/seances}" class="nav-link">
+                            <i class="nav-icon bi bi-clock-history"></i>
+                            <p>Séances</p>
+                        </a>
+                    </li>
+                    
+                    <!-- Nationalite -->
+                    <li class="nav-item">
+                        <a th:href="@{/admin/nationalites}" class="nav-link">
+							<i class="nav-icon bi bi-flag"></i>
+                            <p>Nationalite</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-header">USERS & CLIENTS</li>
+
+                    <!-- Customers -->
+                    <li class="nav-item">
+                        <a th:href="@{/admin/customers}" class="nav-link">
+                            <i class="nav-icon bi bi-people"></i>
+                            <p>Customers</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-header">ACCOUNT & INFO</li>
+
+                    <!-- Profile -->
+                    <li class="nav-item">
+                        <a th:href="@{/admin/profile}" class="nav-link">
+                            <i class="nav-icon bi bi-person-gear"></i>
+                            <p>My Profile</p>
+                        </a>
+                    </li>
+
+                    <!-- About Us -->
+                    <li class="nav-item">
+                        <a th:href="@{/admin/about}" class="nav-link">
+                            <i class="nav-icon bi bi-info-circle"></i>
+                            <p>About Us</p>
+                        </a>
+                    </li>
+
+                    <!-- Logout -->
+                    <li class="nav-item">
+                        <form th:action="@{/admin/logout}" method="post" class="d-inline">
+                            <button type="submit" class="nav-link border-0 bg-transparent text-start w-100 text-danger">
+                                <i class="nav-icon bi bi-box-arrow-right"></i>
+                                <p>Logout</p>
+                            </button>
+                        </form>
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
+    </aside>
+</body>
+</html>

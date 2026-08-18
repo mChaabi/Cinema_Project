@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"> 
+<head>
+    <title>Séances List</title>
+</head>
+<body>
+
+    <main layout:fragment="content" class="p-4">
+        <div class="container-fluid">
+            <h2 class="mb-4">Séance Management</h2>
+            
+            <div class="card card-primary card-outline shadow-sm">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title m-0">Screenings List</h3>
+                    <button class="btn btn-sm btn-primary ms-auto">Add New Séance</button>
+                </div>
+                
+                <div class="card-body">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 10%">ID</th>
+                                <th>Date</th>
+                                <th>Start Time</th>
+                                <th>Film</th>
+                                <th>Salle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="seance : ${seances}">
+                                <td th:text="${seance.id}">1</td>
+                                <td th:text="${seance.dateSeance}">2026-10-15</td>
+                                <td th:text="${seance.heureDebut}">20:00</td>
+                                <td th:text="${seance.film != null ? seance.film.titre : '-'}">Inception</td>
+                                <td th:text="${seance.salle != null ? seance.salle.nom : '-'}">Salle 1</td>
+                            </tr>
+                            
+                            <tr th:if="${#lists.isEmpty(seances)}">
+                                <td colspan="5" class="text-center text-muted">No screenings found in the database.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

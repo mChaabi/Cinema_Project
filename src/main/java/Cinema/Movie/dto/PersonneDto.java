@@ -8,6 +8,8 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public record PersonneDto(
     Long id,
 
@@ -22,6 +24,7 @@ public record PersonneDto(
     String prenom,
 
     @Past(message = "La date de naissance doit être dans le passé.")
+    @DateTimeFormat(pattern = "yyyy-MM-dd") 
     Date dateNaissance,
 
     @NotNull(message = "Le type de personne (ACTEUR ou REALISATEUR) est obligatoire.")

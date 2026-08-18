@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout}"> 
+<head>
+    <title>Films List</title>
+</head>
+<body>
+
+    <main layout:fragment="content" class="p-4">
+        <div class="container-fluid">
+            <h2 class="mb-4">Film Management</h2>
+            
+            <div th:if="${param.success}" class="alert alert-success alert-dismissible fade show" role="alert">
+                Film saved successfully! 
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div th:if="${param.deleted}" class="alert alert-warning alert-dismissible fade show" role="alert">
+                Film deleted successfully! 
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
+            <div class="card card-primary card-outline shadow-sm">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title m-0">Films List</h3>
+                    <a th:href="@{/admin/films/add}" class="btn btn-sm btn-primary ms-auto">
+                        <i class="bi bi-plus-lg"></i> Add New Film
+                    </a>
+                </div>
+                
+                <div class="card-body">
+                    <table class="table table-bordered table-striped table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 5%">ID</th>
+                                <th>Title</th>
+                                <th>Year</th>
+                                <th>Duration</th>
+                                <th>Genre</th>
+                                <th>Nationality</th>
+                                <th>Director</th>
+                                <th style="width: 15%" class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="film : ${films}">
+                                <td th:text="${film.id}">1</td>
+                                <td th:text="${film.titre}">Inception</td>
+                                <td th:text="${film.annee}">2010</td>
+                                <td th:text="${film.duree} + ' min'">148 min</td>
+                                
+                                <td th:text="${film.genre != null ? film.genre.libelle : '-'}">Sci-Fi</td>
+                                <td th:text="${film.nationalite != null ? film.nationalite.libelle : '-'}">American</td>
+                                <td th:text="${film.realisateur != null ? film.realisateur.prenom + ' ' + film.realisateur.nom : '-'}">Christopher Nolan</td>
+                                
+                                <td class="text-center">
+                                    <a th:href="@{/admin/films/edit/{id}(id=${film.id})}" class="btn btn-sm btn-info text-white me-1">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    
+                                    <form th:action="@{/admin/films/delete/{id}(id=${film.id})}" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this film?');">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            
+                            <tr th:if="${#lists.isEmpty(films)}">
+                                <td colspan="8" class="text-center text-muted py-4">No films found in the database.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

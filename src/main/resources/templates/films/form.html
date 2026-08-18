@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout}"> 
+<head>
+    <title>Film Form</title>
+</head>
+<body>
+
+    <main layout:fragment="content" class="p-4">
+        <div class="container-fluid">
+            <h2 class="mb-4" th:text="${film != null and film.id != null ? 'Edit Film' : 'Add New Film'}">Add New Film</h2>
+            
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card card-primary card-outline shadow-sm">
+                        <div class="card-header">
+                            <h3 class="card-title m-0">Film Details</h3>
+                        </div>
+                        
+                        <form th:action="@{/admin/films/save}" th:object="${film}" method="post">
+                            <input type="hidden" th:field="*{id}">
+
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="form-label">Title</label>
+                                    <input type="text" th:field="*{titre}" class="form-control" required>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Duration (minutes)</label>
+                                        <input type="number" th:field="*{duree}" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Release Year</label>
+                                        <input type="number" th:field="*{annee}" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label">Genre</label>
+                                        <select th:field="*{genreId}" class="form-select">
+                                            <option value="">-- Select a Genre --</option>
+                                            <option th:each="g : ${genres}" th:value="${g.id}" th:text="${g.libelle}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label">Nationality</label>
+                                        <select th:field="*{nationaliteId}" class="form-select">
+                                            <option value="">-- Select Nationality --</option>
+                                            <option th:each="n : ${nationalites}" th:value="${n.id}" th:text="${n.libelle}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label">Director (Réalisateur)</label>
+                                        <select th:field="*{realisateurId}" class="form-select">
+                                            <option value="">-- Select Director --</option>
+                                            <!-- Assuming your Personne object has prenom and nom -->
+                                            <option th:each="r : ${realisateurs}" th:value="${r.id}" th:text="${r.prenom + ' ' + r.nom}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card-footer d-flex justify-content-between">
+                                <a th:href="@{/admin/films}" class="btn btn-secondary">Cancel</a>
+                                <button type="submit" class="btn btn-success">Save Film</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

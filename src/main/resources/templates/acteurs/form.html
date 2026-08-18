@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout}"> 
+<head>
+    <title>Acteur Form</title>
+</head>
+<body>
+
+    <main layout:fragment="content" class="p-4">
+        <div class="container-fluid">
+            <h2 class="mb-4" th:text="${acteur != null and acteur.id != null ? 'Edit Acteur' : 'Add New Acteur'}">Add New Acteur</h2>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-primary card-outline shadow-sm">
+                        <div class="card-header">
+                            <h3 class="card-title m-0">Acteur Details</h3>
+                        </div>
+                        
+                        <!-- Added enctype="multipart/form-data" for file uploads -->
+                        <form th:action="@{/admin/acteurs/save}" th:object="${acteur}" method="post" enctype="multipart/form-data">
+                            
+                            <input type="hidden" th:field="*{id}">
+                            <input type="hidden" th:field="*{typePersonne}">
+
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="form-label">First Name (Prénom)</label>
+                                    <input type="text" th:field="*{prenom}" class="form-control" placeholder="e.g. Leonardo" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Last Name (Nom)</label>
+                                    <input type="text" th:field="*{nom}" class="form-control" placeholder="e.g. DiCaprio" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Date of Birth</label>
+                                    <input type="date" th:field="*{dateNaissance}" class="form-control">
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Photo Upload</label>
+                                    <!-- Changed to type="file" and named it imageFile to catch it in the controller -->
+                                    <input type="file" name="imageFile" class="form-control" accept="image/*">
+                                    
+                                    <!-- Show existing photo if editing -->
+                                    <div th:if="${acteur.photo != null and !acteur.photo.isEmpty()}" class="mt-2">
+                                        <small class="text-muted">Current photo:</small><br>
+                                        <img th:src="@{${acteur.photo}}" alt="Current Photo" class="img-thumbnail" style="width: 80px;">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card-footer d-flex justify-content-between">
+                                <a th:href="@{/admin/acteurs}" class="btn btn-secondary">Cancel</a>
+                                <button type="submit" class="btn btn-success">Save Acteur</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
