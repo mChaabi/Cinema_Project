@@ -23,6 +23,5 @@ public record FilmDto(
 
     List<Long> acteurIds,
 
-    // Main poster image URL
     String photoUrl
 ) {}

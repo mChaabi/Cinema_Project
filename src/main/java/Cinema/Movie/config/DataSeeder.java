@@ -18,7 +18,6 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // Create an admin user if it doesn't exist
         if (!userRepository.existsByUsername("admin")) {
             User admin = new User();
             admin.setUsername("admin");
