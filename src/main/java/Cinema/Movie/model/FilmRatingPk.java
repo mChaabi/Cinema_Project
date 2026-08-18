@@ -1,11 +1,9 @@
-package Cinema.Movie.dto;
+package Cinema.Movie.model;
 
 import java.io.Serializable;
 import java.util.Objects;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.ManyToOne;
-import Cinema.Movie.model.Film;
-import Cinema.Movie.model.Customers;
 
 @Embeddable
 public class FilmRatingPk implements Serializable {

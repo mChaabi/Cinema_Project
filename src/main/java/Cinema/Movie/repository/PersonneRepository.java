@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import Cinema.Movie.dto.InlinePersonne;
 import Cinema.Movie.model.Personne.TypePersonne;
+import Cinema.Movie.Projection.InlinePersonne;
 import Cinema.Movie.model.Personne;
 
 @CrossOrigin("http://localhost:4200")

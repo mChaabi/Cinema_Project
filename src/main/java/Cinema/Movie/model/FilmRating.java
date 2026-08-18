@@ -1,4 +1,4 @@
-package Cinema.Movie.dto;
+package Cinema.Movie.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;

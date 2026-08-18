@@ -5,7 +5,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-import Cinema.Movie.dto.InlineFilm;
+import Cinema.Movie.Projection.InlineFilm;
 import Cinema.Movie.model.Film;
 
 @CrossOrigin("http://localhost:4200")
