@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout}">
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+
+    <main layout:fragment="content" class="p-4">
+        <div class="container-fluid">
+            <div class="row mb-4">
+                <div class="col-sm-6">
+                    <h2 class="m-0">Dashboard Statistics</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-6">
+                    <div class="small-box text-bg-primary">
+                        <div class="inner">
+                            <h3 th:text="${totalFilms}">0</h3>
+                            <p>Total Movies</p>
+                        </div>
+                        <div class="small-box-icon">
+                            <i class="bi bi-film fs-2"></i>
+                        </div>
+                        <a th:href="@{/admin/films}" class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover">
+                            More info <i class="bi bi-arrow-right-circle"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-6">
+                    <div class="small-box text-bg-success">
+                        <div class="inner">
+                            <h3 th:text="${totalSalles}">0</h3>
+                            <p>Cinema Halls</p>
+                        </div>
+                        <div class="small-box-icon">
+                            <i class="bi bi-door-open fs-2"></i>
+                        </div>
+                        <a th:href="@{/admin/salles}" class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover">
+                            More info <i class="bi bi-arrow-right-circle"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-6">
+                    <div class="small-box text-bg-warning">
+                        <div class="inner">
+                            <h3 th:text="${totalSeances}">0</h3>
+                            <p>Screenings (Séances)</p>
+                        </div>
+                        <div class="small-box-icon">
+                            <i class="bi bi-clock-history fs-2"></i>
+                        </div>
+                        <a th:href="@{/admin/seances}" class="small-box-footer link-dark link-underline-opacity-0 link-underline-opacity-50-hover">
+                            More info <i class="bi bi-arrow-right-circle"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-6">
+                    <div class="small-box text-bg-danger">
+                        <div class="inner">
+                            <h3 th:text="${totalCustomers}">0</h3>
+                            <p>Registered Customers</p>
+                        </div>
+                        <div class="small-box-icon">
+                            <i class="bi bi-people fs-2"></i>
+                        </div>
+                        <a th:href="@{/admin/customers}" class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover">
+                            More info <i class="bi bi-arrow-right-circle"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-3 col-6">
+                    <div class="small-box text-bg-info">
+                        <div class="inner">
+                            <h3 th:text="${totalActeurs}">0</h3>
+                            <p>Actors</p>
+                        </div>
+                        <div class="small-box-icon">
+                            <i class="bi bi-person-video2 fs-2"></i>
+                        </div>
+                        <a th:href="@{/admin/acteurs}" class="small-box-footer link-dark link-underline-opacity-0 link-underline-opacity-50-hover">
+                            More info <i class="bi bi-arrow-right-circle"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-6">
+                    <div class="small-box text-bg-secondary">
+                        <div class="inner">
+                            <h3 th:text="${totalRealisateurs}">0</h3>
+                            <p>Directors</p>
+                        </div>
+                        <div class="small-box-icon">
+                            <i class="bi bi-camera-reels fs-2"></i>
+                        </div>
+                        <a th:href="@{/admin/realisateurs}" class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover">
+                            More info <i class="bi bi-arrow-right-circle"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
+ 

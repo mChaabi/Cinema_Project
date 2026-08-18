@@ -27,28 +27,31 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Film extends AbstractModel<Long> {
-	
-	private static final long serialVersionUID = 2996009286487492970L;
+    
+    private static final long serialVersionUID = 2996009286487492970L;
 
-	@Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 50)
     private String titre;
-	
-	@Column(nullable = false)
+
+    @Column(nullable = true, length = 255)
+    private String photoUrl;
+    
+    @Column(nullable = false)
     private int duree;
 
-	@Column(nullable = false)
+    @Column(nullable = false)
     private int annee;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
+    
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "GENRE_ID")
     private Genre genre;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
+    
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "NATIONALITE_ID")
-	@JsonProperty
+    @JsonProperty
     private Nationalite nationalite;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
+    
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "DIRECTOR_ID")
     private Personne realisateur;
 
@@ -61,11 +64,11 @@ public class Film extends AbstractModel<Long> {
     
     @OneToMany(mappedBy = "film")
     @JsonIgnore
-	private List<Seance> seances;
+    private List<Seance> seances;
     
     @OneToMany(mappedBy = "film", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonIgnore
-	private List<Media> medias;
+    private List<Media> medias;
     
     @Column(name = "added_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Date addedDate;  

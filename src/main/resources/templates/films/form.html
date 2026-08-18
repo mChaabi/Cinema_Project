@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/layout}"> 
+      layout:decorate="~{/layout}">
 <head>
     <title>Film Form</title>
 </head>
@@ -9,70 +9,167 @@
 
     <main layout:fragment="content" class="p-4">
         <div class="container-fluid">
-            <h2 class="mb-4" th:text="${film != null and film.id != null ? 'Edit Film' : 'Add New Film'}">Add New Film</h2>
-            
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="card card-primary card-outline shadow-sm">
-                        <div class="card-header">
-                            <h3 class="card-title m-0">Film Details</h3>
-                        </div>
-                        
-                        <form th:action="@{/admin/films/save}" th:object="${film}" method="post">
-                            <input type="hidden" th:field="*{id}">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="m-0" th:text="${film != null and film.id != null ? 'Edit Film' : 'Add New Film'}">Add New Film</h2>
+                <a th:if="${film != null and film.id != null}"
+                   th:href="@{/admin/films/details/{id}(id=${film.id})}"
+                   class="btn btn-secondary">
+                    <i class="bi bi-eye me-1"></i> View Details
+                </a>
+            </div>
 
+            <form th:action="@{/admin/films/save}" th:object="${film}" method="post" enctype="multipart/form-data">
+                <input type="hidden" th:field="*{id}">
+
+                <div class="row g-4">
+                    <div class="col-lg-7">
+                        <div class="card card-primary card-outline shadow-sm">
+                            <div class="card-header">
+                                <h3 class="card-title m-0"><i class="bi bi-film me-2"></i>Film Details</h3>
+                            </div>
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <label class="form-label">Title</label>
-                                    <input type="text" th:field="*{titre}" class="form-control" required>
+                                    <label class="form-label fw-semibold">Title</label>
+                                    <input type="text" th:field="*{titre}" class="form-control" placeholder="Film title..." required>
                                 </div>
-                                
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold"><i class="bi bi-image me-1"></i>Movie Poster</label>
+
+                                    <div th:if="${film.photoUrl != null and !film.photoUrl.isEmpty()}" class="mb-2">
+                                        <p class="small text-muted mb-1">Current poster:</p>
+                                        <img th:src="${film.photoUrl}" id="currentPoster"
+                                             class="rounded border"
+                                             style="max-height:140px; max-width:100px; object-fit:cover;"
+                                             alt="Current Poster">
+                                    </div>
+
+                                    <input type="file" name="posterFile" id="posterFile"
+                                           class="form-control" accept="image/*"
+                                           onchange="previewPoster(this)">
+                                    <div class="form-text">Accepted formats: JPG, PNG, WEBP, GIF. Leave empty to keep the current poster.</div>
+
+                                    <div class="mt-2" id="uploadPreviewBox" style="display:none;">
+                                        <p class="small text-muted mb-1">New poster preview:</p>
+                                        <img id="uploadPreview" class="rounded border"
+                                             style="max-height:140px; max-width:100px; object-fit:cover;"
+                                             alt="Upload Preview">
+                                    </div>
+
+                                    <input type="hidden" th:field="*{photoUrl}">
+                                </div>
+
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label">Duration (minutes)</label>
-                                        <input type="number" th:field="*{duree}" class="form-control" required>
+                                        <label class="form-label fw-semibold">Duration (minutes)</label>
+                                        <input type="number" th:field="*{duree}" class="form-control" min="1" required>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label">Release Year</label>
-                                        <input type="number" th:field="*{annee}" class="form-control" required>
+                                        <label class="form-label fw-semibold">Release Year</label>
+                                        <input type="number" th:field="*{annee}" class="form-control" min="1888" max="2100" required>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-md-4 mb-3">
-                                        <label class="form-label">Genre</label>
+                                        <label class="form-label fw-semibold">Genre</label>
                                         <select th:field="*{genreId}" class="form-select">
-                                            <option value="">-- Select a Genre --</option>
+                                            <option value="">-- Select Genre --</option>
                                             <option th:each="g : ${genres}" th:value="${g.id}" th:text="${g.libelle}"></option>
                                         </select>
                                     </div>
                                     <div class="col-md-4 mb-3">
-                                        <label class="form-label">Nationality</label>
+                                        <label class="form-label fw-semibold">Nationality</label>
                                         <select th:field="*{nationaliteId}" class="form-select">
                                             <option value="">-- Select Nationality --</option>
                                             <option th:each="n : ${nationalites}" th:value="${n.id}" th:text="${n.libelle}"></option>
                                         </select>
                                     </div>
                                     <div class="col-md-4 mb-3">
-                                        <label class="form-label">Director (Réalisateur)</label>
+                                        <label class="form-label fw-semibold">Director</label>
                                         <select th:field="*{realisateurId}" class="form-select">
                                             <option value="">-- Select Director --</option>
-                                            <!-- Assuming your Personne object has prenom and nom -->
                                             <option th:each="r : ${realisateurs}" th:value="${r.id}" th:text="${r.prenom + ' ' + r.nom}"></option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <div class="card-footer d-flex justify-content-between">
-                                <a th:href="@{/admin/films}" class="btn btn-secondary">Cancel</a>
-                                <button type="submit" class="btn btn-success">Save Film</button>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <div class="card card-warning card-outline shadow-sm h-100">
+                            <div class="card-header">
+                                <h3 class="card-title m-0"><i class="bi bi-people-fill me-2"></i>Cast (Actors)</h3>
+                                <div class="card-tools">
+                                    <small class="text-muted">Select as many as needed</small>
+                                </div>
                             </div>
-                        </form>
+                            <div class="card-body" style="max-height: 380px; overflow-y: auto;">
+                                <div th:if="${acteurs == null or #lists.isEmpty(acteurs)}" class="text-muted text-center py-3">
+                                    <i class="bi bi-person-x fs-3 d-block mb-2"></i>
+                                    No actors available. Add actors in the Actors section first.
+                                </div>
+
+                                <div th:if="${acteurs != null and not #lists.isEmpty(acteurs)}" class="mb-3">
+                                    <input type="text" id="actorSearch" class="form-control form-control-sm" placeholder="Search actors...">
+                                </div>
+
+                                <div th:each="acteur : ${acteurs}" class="form-check mb-2 actor-item">
+                                    <input class="form-check-input" type="checkbox"
+                                           name="acteurIds"
+                                           th:value="${acteur.id}"
+                                           th:id="'acteur_' + ${acteur.id}"
+                                           th:checked="${film.acteurIds != null and film.acteurIds.contains(acteur.id)}">
+                                    <label class="form-check-label d-flex align-items-center gap-2"
+                                           th:for="'acteur_' + ${acteur.id}">
+                                        <span class="d-inline-flex align-items-center justify-content-center rounded-circle bg-secondary text-white"
+                                              style="width:28px;height:28px;font-size:12px;">
+                                            <i class="bi bi-person-fill"></i>
+                                        </span>
+                                        <span th:text="${acteur.prenom + ' ' + acteur.nom}">Actor Name</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a th:href="@{/admin/films}" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left me-1"></i> Back to List
+                    </a>
+                    <button type="submit" class="btn btn-success px-4">
+                        <i class="bi bi-save me-1"></i> Save Film
+                    </button>
+                </div>
+            </form>
         </div>
+
+        <script>
+            document.getElementById('actorSearch')?.addEventListener('input', function() {
+                const term = this.value.toLowerCase();
+                document.querySelectorAll('.actor-item').forEach(item => {
+                    const name = item.querySelector('label span:last-child').textContent.toLowerCase();
+                    item.style.display = name.includes(term) ? '' : 'none';
+                });
+            });
+
+            function previewPoster(input) {
+                const previewBox = document.getElementById('uploadPreviewBox');
+                const previewImg = document.getElementById('uploadPreview');
+                if (input.files && input.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImg.src = e.target.result;
+                        previewBox.style.display = 'block';
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                } else {
+                    previewBox.style.display = 'none';
+                }
+            }
+        </script>
     </main>
 
 </body>

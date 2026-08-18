@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout}">
+<head>
+    <title th:text="${film.titre} + ' — eCine'">Film Details</title>
+</head>
+<body>
+
+    <main layout:fragment="content" class="p-4">
+        <div class="container-fluid">
+
+            <nav aria-label="breadcrumb" class="mb-3">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a th:href="@{/admin/dashboard}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a th:href="@{/admin/films}">Films</a></li>
+                    <li class="breadcrumb-item active" th:text="${film.titre}">Film Title</li>
+                </ol>
+            </nav>
+
+            <div class="card card-dark card-outline shadow mb-4 overflow-hidden">
+                <div class="card-body p-0">
+                    <div class="row g-0">
+
+                        <div class="col-md-3 col-lg-2 bg-dark d-flex align-items-center justify-content-center p-3" style="min-height:320px;">
+                            <img th:if="${film.photoUrl != null and !film.photoUrl.isEmpty()}"
+                                 th:src="${film.photoUrl}"
+                                 th:alt="${film.titre}"
+                                 class="img-fluid rounded shadow"
+                                 style="max-height:300px; width:100%; object-fit:cover;">
+                            <div th:if="${film.photoUrl == null or film.photoUrl.isEmpty()}"
+                                 class="d-flex flex-column align-items-center justify-content-center text-secondary w-100"
+                                 style="min-height:260px;">
+                                <i class="bi bi-film" style="font-size:4rem;"></i>
+                                <span class="small mt-2">No Poster</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-9 col-lg-10 p-4">
+                            <!-- Badges row -->
+                            <div class="d-flex flex-wrap gap-2 mb-2">
+                                <span class="badge text-bg-danger fs-6" th:if="${film.genre != null}" th:text="${film.genre.libelle}">Genre</span>
+                                <span class="badge text-bg-primary fs-6" th:if="${film.nationalite != null}" th:text="${film.nationalite.libelle}">Nationality</span>
+                                <span class="badge text-bg-secondary fs-6">
+                                    <i class="bi bi-calendar3 me-1"></i>
+                                    <span th:text="${film.annee}">2010</span>
+                                </span>
+                                <span class="badge text-bg-info fs-6">
+                                    <i class="bi bi-clock me-1"></i>
+                                    <span th:text="${film.duree} + ' min'">120 min</span>
+                                </span>
+                            </div>
+
+                            <h1 class="fw-bold mb-3" th:text="${film.titre}">Film Title</h1>
+
+                            <ul class="list-group list-group-flush mb-4">
+                                <li class="list-group-item px-0" th:if="${film.realisateur != null}">
+                                    <span class="text-muted small text-uppercase fw-semibold me-3" style="min-width:90px; display:inline-block;">
+                                        <i class="bi bi-camera-reels me-1"></i>Director
+                                    </span>
+                                    <span class="fw-semibold" th:text="${film.realisateur.prenom + ' ' + film.realisateur.nom}">Director Name</span>
+                                </li>
+                                <li class="list-group-item px-0" th:if="${film.genre != null}">
+                                    <span class="text-muted small text-uppercase fw-semibold me-3" style="min-width:90px; display:inline-block;">
+                                        <i class="bi bi-tag me-1"></i>Genre
+                                    </span>
+                                    <span th:text="${film.genre.libelle}">Genre</span>
+                                </li>
+                                <li class="list-group-item px-0" th:if="${film.nationalite != null}">
+                                    <span class="text-muted small text-uppercase fw-semibold me-3" style="min-width:90px; display:inline-block;">
+                                        <i class="bi bi-globe me-1"></i>Nationality
+                                    </span>
+                                    <span th:text="${film.nationalite.libelle}">Nationality</span>
+                                </li>
+                                <li class="list-group-item px-0">
+                                    <span class="text-muted small text-uppercase fw-semibold me-3" style="min-width:90px; display:inline-block;">
+                                        <i class="bi bi-clock me-1"></i>Duration
+                                    </span>
+                                    <span th:text="${film.duree} + ' minutes'">120 minutes</span>
+                                </li>
+                                <li class="list-group-item px-0">
+                                    <span class="text-muted small text-uppercase fw-semibold me-3" style="min-width:90px; display:inline-block;">
+                                        <i class="bi bi-people me-1"></i>Cast
+                                    </span>
+                                    <span th:text="${film.acteurs != null ? #lists.size(film.acteurs) + ' actor(s)' : '0 actors'}">0 actors</span>
+                                </li>
+                            </ul>
+
+                            <div class="d-flex gap-2">
+                                <a th:href="@{/admin/films/edit/{id}(id=${film.id})}" class="btn btn-warning">
+                                    <i class="bi bi-pencil-square me-1"></i> Edit Film
+                                </a>
+                                <a th:href="@{/admin/films}" class="btn btn-outline-secondary">
+                                    <i class="bi bi-arrow-left me-1"></i> Back to List
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card card-warning card-outline shadow-sm mb-4">
+                <div class="card-header">
+                    <h3 class="card-title m-0">
+                        <i class="bi bi-people-fill me-2"></i>Cast
+                        <span class="badge text-bg-warning ms-2"
+                              th:text="${film.acteurs != null ? #lists.size(film.acteurs) : 0}">0</span>
+                    </h3>
+                    <div class="card-tools">
+                        <a th:href="@{/admin/films/edit/{id}(id=${film.id})}" class="btn btn-sm btn-warning">
+                            <i class="bi bi-pencil me-1"></i> Manage Cast
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Empty state -->
+                    <div th:if="${film.acteurs == null or #lists.isEmpty(film.acteurs)}"
+                         class="text-center text-muted py-4">
+                        <i class="bi bi-person-x fs-1 d-block mb-2"></i>
+                        No actors assigned yet.
+                        <a th:href="@{/admin/films/edit/{id}(id=${film.id})}">Add actors in the edit form.</a>
+                    </div>
+
+                    <div th:if="${film.acteurs != null and not #lists.isEmpty(film.acteurs)}"
+                         class="row g-3">
+                        <div th:each="acteur : ${film.acteurs}" class="col-6 col-sm-4 col-md-3 col-lg-2">
+                            <div class="card h-100 text-center shadow-sm border-0">
+                                <div class="bg-secondary bg-opacity-10 d-flex align-items-center justify-content-center"
+                                     style="height:120px; overflow:hidden; border-radius:0.375rem 0.375rem 0 0;">
+                                    <img th:if="${acteur.photo != null and !acteur.photo.isEmpty()}"
+                                         th:src="${acteur.photo}"
+                                         th:alt="${acteur.prenom + ' ' + acteur.nom}"
+                                         class="w-100 h-100"
+                                         style="object-fit:cover;"
+                                         onerror="this.style.display='none'">
+                                    <i class="bi bi-person-fill text-secondary" style="font-size:3rem;"></i>
+                                </div>
+                                <div class="card-body p-2">
+                                    <p class="fw-semibold mb-0 small" th:text="${acteur.prenom + ' ' + acteur.nom}">Actor Name</p>
+                                    <p class="text-muted mb-0"
+                                       style="font-size:0.72rem;"
+                                       th:if="${acteur.nationalite != null}"
+                                       th:text="${acteur.nationalite.libelle}">Country</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card card-info card-outline shadow-sm mb-4">
+                <div class="card-header">
+                    <h3 class="card-title m-0">
+                        <i class="bi bi-images me-2"></i>Media Gallery
+                        <span class="badge text-bg-info ms-2"
+                              th:text="${film.medias != null ? #lists.size(film.medias) : 0}">0</span>
+                    </h3>
+                    <div class="card-tools">
+                        <a th:href="@{/admin/media}" class="btn btn-sm btn-info text-white">
+                            <i class="bi bi-plus-lg me-1"></i> Manage Media
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div th:if="${film.medias == null or #lists.isEmpty(film.medias)}"
+                         class="text-center text-muted py-4">
+                        <i class="bi bi-images fs-1 d-block mb-2"></i>
+                        No media files attached yet.
+                        <a th:href="@{/admin/media}">Add media here.</a>
+                    </div>
+
+                    <div th:if="${film.medias != null and not #lists.isEmpty(film.medias)}"
+                         class="row g-3">
+                        <div th:each="m : ${film.medias}" class="col-6 col-sm-4 col-md-3 col-lg-2">
+                            <div class="card h-100 shadow-sm border">
+
+                                <div th:if="${m.typeMedia != null and m.typeMedia.name() == 'IMAGE'}">
+                                    <div style="height:120px; overflow:hidden; border-radius:0.375rem 0.375rem 0 0;">
+                                        <img th:src="${m.media}" th:alt="${m.media}"
+                                             class="w-100 h-100"
+                                             style="object-fit:cover;">
+                                    </div>
+                                    <div class="card-body p-2 text-center">
+                                        <span class="badge text-bg-success mb-1">IMAGE</span>
+                                        <p class="small text-muted mb-0 text-truncate" th:text="${m.media}" style="font-size:0.7rem;"></p>
+                                    </div>
+                                </div>
+
+                                <div th:if="${m.typeMedia != null and m.typeMedia.name() == 'VIDEO'}">
+                                    <div class="d-flex align-items-center justify-content-center bg-light"
+                                         style="height:120px; border-radius:0.375rem 0.375rem 0 0;">
+                                        <i class="bi bi-play-circle-fill text-danger" style="font-size:3rem;"></i>
+                                    </div>
+                                    <div class="card-body p-2 text-center">
+                                        <span class="badge text-bg-danger mb-1">VIDEO</span>
+                                        <p class="small text-muted mb-0 text-truncate" th:text="${m.media}" style="font-size:0.7rem;"></p>
+                                    </div>
+                                </div>
+
+                                <div th:if="${m.typeMedia != null and m.typeMedia.name() == 'DOCUMENT'}">
+                                    <div class="d-flex align-items-center justify-content-center bg-light"
+                                         style="height:120px; border-radius:0.375rem 0.375rem 0 0;">
+                                        <i class="bi bi-file-earmark-text text-secondary" style="font-size:3rem;"></i>
+                                    </div>
+                                    <div class="card-body p-2 text-center">
+                                        <span class="badge text-bg-secondary mb-1">DOCUMENT</span>
+                                        <p class="small text-muted mb-0 text-truncate" th:text="${m.media}" style="font-size:0.7rem;"></p>
+                                    </div>
+                                </div>
+
+                                <div th:if="${m.typeMedia == null}">
+                                    <div class="d-flex align-items-center justify-content-center bg-light"
+                                         style="height:120px; border-radius:0.375rem 0.375rem 0 0;">
+                                        <i class="bi bi-file-earmark text-muted" style="font-size:3rem;"></i>
+                                    </div>
+                                    <div class="card-body p-2 text-center">
+                                        <span class="badge text-bg-light text-dark mb-1">FILE</span>
+                                        <p class="small text-muted mb-0 text-truncate" th:text="${m.media}" style="font-size:0.7rem;"></p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>
+ 

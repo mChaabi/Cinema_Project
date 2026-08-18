@@ -1,7 +1,7 @@
 package Cinema.Movie.dto;
 
 import jakarta.validation.constraints.*;
-import java.util.Date;
+import java.util.List;
 
 public record FilmDto(
     Long id,
@@ -19,5 +19,10 @@ public record FilmDto(
 
     Long genreId,
     Long nationaliteId,
-    Long realisateurId
+    Long realisateurId,
+
+    List<Long> acteurIds,
+
+    // Main poster image URL
+    String photoUrl
 ) {}

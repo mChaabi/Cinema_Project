@@ -3,52 +3,52 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/layout}">
 <head>
-    <title>Customer Account Form</title>
+    <title>Administrator Form</title>
 </head>
 <body>
 
     <main layout:fragment="content" class="p-4">
         <div class="container-fluid">
-            <h2 class="mb-4" th:text="${customer != null and customer.id != null ? 'Edit Customer Account' : 'Add New Customer Account'}">Add New Customer</h2>
+            <h2 class="mb-4" th:text="${user != null and user.id != null ? 'Edit Administrator' : 'Add New Administrator'}">Add New Administrator</h2>
 
             <div class="row">
                 <div class="col-md-6">
                     <div class="card card-primary card-outline shadow-sm">
                         <div class="card-header">
-                            <h3 class="card-title m-0">Customer Account Details</h3>
+                            <h3 class="card-title m-0">Administrator Details</h3>
                         </div>
 
                         <div th:if="${param.error != null and param.error[0] == 'passwordRequired'}" class="alert alert-danger m-3" role="alert">
-                            Password is required for new customer accounts.
+                            Password is required for new administrators.
                         </div>
 
-                        <form th:action="@{/admin/customers/save}" th:object="${customer}" method="post">
+                        <form th:action="@{/admin/users/save}" th:object="${user}" method="post">
                             <input type="hidden" th:field="*{id}">
-                            <!-- We don't expose role in the form because it defaults to USER in the controller -->
 
                             <div class="card-body">
                                 <div class="mb-3">
                                     <label class="form-label">Username</label>
-                                    <input type="text" th:field="*{username}" class="form-control" placeholder="e.g. jdoe123" required>
+                                    <input type="text" th:field="*{username}" class="form-control" placeholder="e.g. john_admin" required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">Email Address</label>
-                                    <input type="email" th:field="*{email}" class="form-control" placeholder="e.g. customer@example.com" required>
+                                    <input type="email" th:field="*{email}" class="form-control" placeholder="e.g. admin@ecine.com" required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">Password</label>
                                     <input type="password" th:field="*{password}" class="form-control" placeholder="Enter password">
-                                    <div class="form-text" th:if="${customer != null and customer.id != null}">
+                                    <div class="form-text" th:if="${user != null and user.id != null}">
                                         Leave blank to keep the current password.
                                     </div>
                                 </div>
+
                             </div>
 
                             <div class="card-footer d-flex justify-content-between">
-                                <a th:href="@{/admin/customers}" class="btn btn-secondary">Cancel</a>
-                                <button type="submit" class="btn btn-success">Save Customer Account</button>
+                                <a th:href="@{/admin/users}" class="btn btn-secondary">Cancel</a>
+                                <button type="submit" class="btn btn-success">Save Administrator</button>
                             </div>
                         </form>
                     </div>

@@ -26,7 +26,7 @@ class UserRepositoryTest {
     @DisplayName("Devrait sauvegarder et retrouver un utilisateur par son ID")
     void shouldSaveAndFindUserById() {
         // Arrange
-        User user = new User(null, "john_doe", "john@example.com", "secret123");
+        User user = new User(null, "john_doe", "john@example.com", "secret123", null);
 
         // Act
         User savedUser = userRepository.save(user);
@@ -42,8 +42,8 @@ class UserRepositoryTest {
     @DisplayName("Devrait lever une exception en cas de doublon sur le username")
     void shouldThrowExceptionWhenDuplicateUsername() {
         // Arrange
-        User user1 = new User(null, "unique_user", "email1@example.com", "pass1");
-        User user2 = new User(null, "unique_user", "email2@example.com", "pass2");
+        User user1 = new User(null, "unique_user", "email1@example.com", "pass1", null);
+        User user2 = new User(null, "unique_user", "email2@example.com", "pass2", null);
 
         entityManager.persistAndFlush(user1);
 
@@ -56,8 +56,8 @@ class UserRepositoryTest {
     @DisplayName("Devrait lever une exception en cas de doublon sur l'email")
     void shouldThrowExceptionWhenDuplicateEmail() {
         // Arrange
-        User user1 = new User(null, "user1", "same@example.com", "pass1");
-        User user2 = new User(null, "user2", "same@example.com", "pass2");
+        User user1 = new User(null, "user1", "same@example.com", "pass1", null);
+        User user2 = new User(null, "user2", "same@example.com", "pass2", null);
 
         entityManager.persistAndFlush(user1);
 

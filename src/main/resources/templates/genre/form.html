@@ -9,27 +9,22 @@
 
     <main layout:fragment="content" class="p-4">
         <div class="container-fluid">
-            <!-- Dynamic title based on whether we are editing or creating -->
             <h2 class="mb-4" th:text="${genre != null and genre.id != null ? 'Edit Genre' : 'Add New Genre'}">Add New Genre</h2>
             
             <div class="row">
-                <!-- Using col-md-6 to make the form a bit narrower since Genre only has one field -->
                 <div class="col-md-6">
                     <div class="card card-primary card-outline shadow-sm">
                         <div class="card-header">
                             <h3 class="card-title m-0">Genre Details</h3>
                         </div>
                         
-                        <!-- Form binds to the /genres/save endpoint with the 'genre' object -->
                         <form th:action="@{/admin/genres/save}" th:object="${genre}" method="post">
                             
-                            <!-- Hidden ID field for updates -->
                             <input type="hidden" th:field="*{id}">
 
                             <div class="card-body">
                                 <div class="mb-3">
                                     <label class="form-label">Genre Name (Libellé)</label>
-                                    <!-- th:field automatically binds the value and the name attribute -->
                                     <input type="text" th:field="*{libelle}" class="form-control" placeholder="e.g. Action, Comedy, Drama" required>
                                 </div>
                             </div>

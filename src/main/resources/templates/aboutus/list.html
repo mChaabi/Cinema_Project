@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout}">
+<head>
+    <title>About Us - Aflami Admin</title>
+</head>
+<body>
+
+    <main layout:fragment="content" class="p-4">
+        <div class="container-fluid">
+            <div class="card card-primary card-outline shadow-sm mb-4">
+                <div class="card-body p-5 text-center bg-body-tertiary rounded-3">
+                    <div class="d-inline-block p-3 rounded-circle bg-primary bg-opacity-10 text-primary mb-3">
+                        <i class="bi bi-film fs-1"></i>
+                    </div>
+                    <h1 class="display-5 fw-bold text-body-emphasis">Aflami Management System</h1>
+                    <p class="col-lg-8 mx-auto fs-5 text-muted">
+                        A modern, high-performance web solution designed to simplify cinema administration, movie scheduling, customer management, and multimedia organization.
+                    </p>
+                    <div class="d-inline-flex gap-2">
+                        <span class="badge bg-primary fs-6 px-3 py-2">Version 1.0.0</span>
+                        <span class="badge bg-success fs-6 px-3 py-2">Spring Boot 3.3.3</span>
+                        <span class="badge bg-dark fs-6 px-3 py-2">Java 21</span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row g-4 mb-4">
+                <div class="col-lg-6">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-header bg-body-secondary">
+                            <h3 class="card-title fw-bold m-0"><i class="bi bi-cpu me-2"></i> Technology Stack</h3>
+                        </div>
+                        <div class="card-body p-0">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span><i class="bi bi-code-slash text-danger me-2"></i> Framework</span>
+                                    <span class="fw-semibold">Spring Boot 3.3.3 / Java 21</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span><i class="bi bi-palette text-info me-2"></i> Frontend UI</span>
+                                    <span class="fw-semibold">Thymeleaf + AdminLTE 4 + Bootstrap 5</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span><i class="bi bi-database text-warning me-2"></i> Persistence</span>
+                                    <span class="fw-semibold">Spring Data JPA + MySQL</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span><i class="bi bi-shield-check text-success me-2"></i> Security</span>
+                                    <span class="fw-semibold">Spring Security 6</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span><i class="bi bi-layers text-primary me-2"></i> Layout Dialect</span>
+                                    <span class="fw-semibold">UltraQ Thymeleaf Layout Dialect</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-header bg-body-secondary">
+                            <h3 class="card-title fw-bold m-0"><i class="bi bi-info-circle me-2"></i> Platform Overview</h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text text-secondary">
+                                <strong>Aflami</strong> is crafted to provide cinema managers with an intuitive workspace. With integrated analytics, seamless entity relations, and structured showtime management, cinema staff can handle everyday scheduling and ticketing workflows effortlessly.
+                            </p>
+                            <hr>
+                            <div class="row text-center mt-3">
+                                <div class="col-4">
+                                    <h4 class="fw-bold text-primary m-0">100%</h4>
+                                    <small class="text-muted">Responsive</small>
+                                </div>
+                                <div class="col-4">
+                                    <h4 class="fw-bold text-success m-0">Fast</h4>
+                                    <small class="text-muted">JPA Queries</small>
+                                </div>
+                                <div class="col-4">
+                                    <h4 class="fw-bold text-info m-0">Secure</h4>
+                                    <small class="text-muted">BCrypt Auth</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+           
+
+        </div>
+    </main>
+
+</body>
+</html>
+ 

@@ -39,7 +39,7 @@ public abstract class AbstractService<T extends AbstractModel<Long>, Long extend
         try {
             getRepository().deleteById(id);
         } catch (EmptyResultDataAccessException e) {
-        	System.out.println("\n************ Erreur de suppression avec ID = "+id+"\n"+e);
+            System.out.println("\n************ Erreur de suppression avec ID = "+id+"\n"+e);
         }
     }
 
@@ -51,6 +51,10 @@ public abstract class AbstractService<T extends AbstractModel<Long>, Long extend
     
     public List<T> getListAll() {
         return getRepository().findAll();
+    }
+
+    public long count() {
+        return getRepository().count();
     }
 
 }

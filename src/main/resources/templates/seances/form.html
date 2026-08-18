@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout}">
+<head>
+    <title>Séance Form</title>
+</head>
+<body>
+
+    <main layout:fragment="content" class="p-4">
+        <div class="container-fluid">
+            <h2 class="mb-4" th:text="${seance != null and seance.id != null ? 'Edit Séance' : 'Add New Séance'}">Add New Séance</h2>
+
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="card card-primary card-outline shadow-sm">
+                        <div class="card-header">
+                            <h3 class="card-title m-0">Séance Details</h3>
+                        </div>
+
+                        <form th:action="@{/admin/seances/save}" th:object="${seance}" method="post">
+                            <input type="hidden" th:field="*{id}">
+
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="form-label">Projection Date</label>
+                                    <input type="date" th:field="*{dateProjection}" class="form-control" required>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Start Time (Heure Début)</label>
+                                        <input type="time" th:field="*{heureDebut}" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">End Time (Heure Fin)</label>
+                                        <input type="time" th:field="*{heureFin}" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Film</label>
+                                    <select th:field="*{filmId}" class="form-select" required>
+                                        <option value="">-- Select a Film --</option>
+                                        <option th:each="f : ${films}" th:value="${f.id}" th:text="${f.titre}"></option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Cinema Hall (Salle)</label>
+                                    <select th:field="*{salleId}" class="form-select" required>
+                                        <option value="">-- Select a Salle --</option>
+                                        <option th:each="s : ${salles}" th:value="${s.id}" th:text="${'Salle ' + s.numero + ' (' + s.capacite + ' seats)'}"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="card-footer d-flex justify-content-between">
+                                <a th:href="@{/admin/seances}" class="btn btn-secondary">Cancel</a>
+                                <button type="submit" class="btn btn-success">Save Séance</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
+ 
