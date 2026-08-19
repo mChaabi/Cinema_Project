@@ -1,5 +1,6 @@
 package Cinema.Movie.controller;
 
+import Cinema.Movie.entity.Role;
 import Cinema.Movie.entity.User;
 import Cinema.Movie.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,9 @@ public class UserController {
     public ResponseEntity<User> createUser(@RequestBody User user) {
         if (user.getPassword() == null || user.getPassword().isEmpty()) {
             return ResponseEntity.badRequest().build();
+        }
+        if (user.getRole() == null) {
+            user.setRole(Role.USER);
         }
         User saved = userService.save(user);
         saved.setPassword(null); 
