@@ -1,5 +1,6 @@
 package Cinema.Movie.service;
 
+import Cinema.Movie.entity.Role;
 import Cinema.Movie.entity.User;
 import Cinema.Movie.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
-        String role = user.getRole() != null ? user.getRole() : "USER";
+        Role role = user.getRole() != null ? user.getRole() : Role.USER;
 
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),

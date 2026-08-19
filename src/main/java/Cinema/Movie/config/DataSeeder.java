@@ -1,5 +1,6 @@
 package Cinema.Movie.config;
 
+import Cinema.Movie.entity.Role;
 import Cinema.Movie.entity.User;
 import Cinema.Movie.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class DataSeeder implements CommandLineRunner {
             admin.setUsername("admin");
             admin.setPassword(passwordEncoder.encode("admin"));
             admin.setEmail("admin@ecine.com");
-            admin.setRole("ADMIN");
+            admin.setRole(Role.ADMIN);
             userRepository.save(admin);
             System.out.println("Default admin user created (admin/admin)");
         }

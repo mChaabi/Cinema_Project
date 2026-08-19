@@ -1,6 +1,7 @@
 package Cinema.Movie.controller.admin;
 
 import Cinema.Movie.dto.UserDto;
+import Cinema.Movie.entity.Role;
 import Cinema.Movie.entity.User;
 import Cinema.Movie.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class AdminUserController {
         user.setUsername(dto.username());
         user.setEmail(dto.email());
         user.setPassword(dto.password());
-        user.setRole("ADMIN"); 
+        user.setRole(Role.ADMIN); 
         return user;
     }
 
@@ -44,7 +45,7 @@ public class AdminUserController {
 
     @GetMapping("/add")
     public String showAddForm(Model model) {
-        model.addAttribute("user", new UserDto(null, "", "", "", "ADMIN"));
+        model.addAttribute("user", new UserDto(null, "", "", "", Role.ADMIN));
         return "users/form";
     }
 
