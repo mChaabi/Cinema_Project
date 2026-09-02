@@ -16,7 +16,8 @@ public class MediaMapper {
             media.getId(),
             media.getMedia(),
             media.getTypeMedia(),
-            filmId
+            filmId,
+                media.getThumbnailUrl()
         );
     }
 
@@ -28,6 +29,7 @@ public class MediaMapper {
         media.setId(mediaDto.id());
         media.setMedia(mediaDto.media());
         media.setTypeMedia(mediaDto.typeMedia());
+        media.setThumbnailUrl(mediaDto.thumbnailUrl());
 
         if (mediaDto.filmId() != null) {
             Film film = new Film();

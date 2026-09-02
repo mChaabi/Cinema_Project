@@ -1,5 +1,6 @@
 package Cinema.Movie.service;
 
+import Cinema.Movie.dto.UpdateProfileDto;
 import Cinema.Movie.entity.User;
 import Cinema.Movie.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,12 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
+    // Méthode manquante 1 : Rechercher par nom d'utilisateur
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé : " + username));
+    }
+
     public User save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
@@ -42,8 +49,29 @@ public class UserService {
         }
     }
 
+    // Méthode manquante 2 : Mettre à jour le profil (attention à la minuscule 'u' dans updateProfile)
+    public User updateProfile(String username, UpdateProfileDto dto) {
+        User user = findByUsername(username);
+        user.setUsername(dto.username());
+        user.setEmail(dto.email());
+        return userRepository.save(user);
+    }
+
+    // Méthode manquante 3 : Changer le mot de passe
+    public void changePassword(String username, String currentPassword, String newPassword) {
+        User user = findByUsername(username);
+
+        // Vérifier si l'ancien mot de passe correspond
+        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+            throw new RuntimeException("Le mot de passe actuel est incorrect");
+        }
+
+        // Encoder et enregistrer le nouveau mot de passe
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+    }
+
     public void delete(Long id) {
         userRepository.deleteById(id);
     }
 }
- 

@@ -69,11 +69,12 @@ public enum TypeMedia {IMAGE, VIDEO, DOCUMENT}
     private Date addedDate;
 
 
-@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
-
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="FILM_ID")
-
     private Film film;
+
+    @Column(nullable = true, length = 255)
+    private String thumbnailUrl;
 
 } 
 

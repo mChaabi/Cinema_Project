@@ -5,6 +5,8 @@ import Cinema.Movie.model.Film;
 import Cinema.Movie.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 @RestController
@@ -46,4 +48,10 @@ public class FilmController {
    public void deleteFilm(@PathVariable Long id) {
        filmService.delete(id);
    }
+
+    @GetMapping("/prochainement")
+    public List<FilmDto> getUpcomingFilms() {
+        List<Film> films = filmService.getUpcoming(LocalDate.now());
+        return films.stream().map(filmMapper::toDto).collect(Collectors.toList());
+    }
 }

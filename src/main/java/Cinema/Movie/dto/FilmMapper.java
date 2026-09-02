@@ -4,6 +4,7 @@ import Cinema.Movie.model.Film;
 import Cinema.Movie.model.Genre;
 import Cinema.Movie.model.Nationalite;
 import Cinema.Movie.model.Personne;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -13,6 +14,9 @@ import java.util.stream.Collectors;
 @Component
 public class FilmMapper {
 
+    @Autowired
+    private MediaMapper mediaMapper;
+
     public FilmDto toDto(Film film) {
         if (film == null) return null;
 
@@ -20,16 +24,34 @@ public class FilmMapper {
             ? film.getActeurs().stream().map(Personne::getId).collect(Collectors.toList())
             : new ArrayList<>();
 
+        List<MediaDto> mediaDtos = film.getMedias() != null
+                ? film.getMedias().stream().map(mediaMapper::toDto).collect(Collectors.toList())
+                : new ArrayList<>();
+
+
         return new FilmDto(
-            film.getId(),
-            film.getTitre(),
-            film.getDuree(),
-            film.getAnnee(),
-            film.getGenre() != null ? film.getGenre().getId() : null,
-            film.getNationalite() != null ? film.getNationalite().getId() : null,
-            film.getRealisateur() != null ? film.getRealisateur().getId() : null,
-            acteurIds,
-            film.getPhotoUrl()
+                film.getId(),
+                film.getTitre(),
+                film.getDescription(),
+                film.getDuree(),
+                film.getDateSortie(),
+                film.getAnnee(),
+
+                // Genre ID et Libellé
+                film.getGenre() != null ? film.getGenre().getId() : null,
+                film.getGenre() != null ? film.getGenre().getLibelle() : null,
+
+                // Nationalité ID et Libellé
+                film.getNationalite() != null ? film.getNationalite().getId() : null,
+                film.getNationalite() != null ? film.getNationalite().getLibelle() : null,
+
+                // Réalisateur ID et Nom/Prénom
+                film.getRealisateur() != null ? film.getRealisateur().getId() : null,
+                film.getRealisateur() != null ? film.getRealisateur().getPrenom() + " " + film.getRealisateur().getNom() : null,
+
+                acteurIds,
+                film.getPhotoUrl(),
+                mediaDtos
         );
     }
 

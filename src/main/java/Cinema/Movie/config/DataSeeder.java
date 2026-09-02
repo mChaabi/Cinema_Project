@@ -19,15 +19,26 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (!userRepository.existsByUsername("admin")) {
-            User admin = new User();
-            admin.setUsername("admin");
-            admin.setPassword(passwordEncoder.encode("admin"));
-            admin.setEmail("admin@ecine.com");
-            admin.setRole(Role.ADMIN);
-            userRepository.save(admin);
-            System.out.println("Default admin user created (admin/admin)");
+        if (userRepository.count() == 0) {
+            // 3 Admins (Contraseña: admin123)
+            createAndSaveUser("admin1", "admin1@cinema.com", "admin123", Role.ADMIN);
+            createAndSaveUser("admin2", "admin2@cinema.com", "admin123", Role.ADMIN);
+            createAndSaveUser("admin3", "admin3@cinema.com", "admin123", Role.ADMIN);
+
+            // 2 Users (Contraseña: user123)
+            createAndSaveUser("user1", "user1@cinema.com", "user123", Role.USER);
+            createAndSaveUser("user2", "user2@cinema.com", "user123", Role.USER);
+
+            System.out.println("--> Se han creado los 5 usuarios de prueba correctamente.");
         }
     }
+
+    private void createAndSaveUser(String username, String email, String rawPassword, Role role) {
+        User user = new User();
+        user.setUsername(username);
+        user.setEmail(email);
+        user.setPassword(passwordEncoder.encode(rawPassword));
+        user.setRole(role);
+        userRepository.save(user);
+    }
 }
- 

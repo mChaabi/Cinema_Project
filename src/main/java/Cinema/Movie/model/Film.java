@@ -1,5 +1,6 @@
 package Cinema.Movie.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +34,9 @@ public class Film extends AbstractModel<Long> {
     @Column(nullable = false, length = 50)
     private String titre;
 
+    @Column(columnDefinition = "TEXT", nullable = true)
+    private String description;
+
     @Column(nullable = true, length = 255)
     private String photoUrl;
     
@@ -45,6 +49,10 @@ public class Film extends AbstractModel<Long> {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "GENRE_ID")
     private Genre genre;
+
+    // Entidad Film
+    @Column(name = "date_sortie")
+    private LocalDate dateSortie;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "NATIONALITE_ID")

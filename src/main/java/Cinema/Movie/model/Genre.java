@@ -50,6 +50,8 @@ private static final long serialVersionUID = -5754835234259566904L;
 
     private String libelle;
 
+    private String photoUrl;
+
 
 @OneToMany(mappedBy = "genre")
 

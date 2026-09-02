@@ -39,7 +39,7 @@ public class AdminMediaController {
 
     @GetMapping("/add")
     public String showAddForm(Model model) {
-        model.addAttribute("media", new MediaDto(null, null, TypeMedia.IMAGE, null));
+        model.addAttribute("media", new MediaDto(null, null, TypeMedia.IMAGE, null,null));
         model.addAttribute("films", filmService.getListAll());
         model.addAttribute("typeMediaValues", TypeMedia.values());
         return "media/form";

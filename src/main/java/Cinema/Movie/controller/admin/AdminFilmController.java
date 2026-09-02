@@ -62,7 +62,23 @@ public class AdminFilmController {
 
     @GetMapping("/add")
     public String showAddForm(Model model) {
-        model.addAttribute("film", new FilmDto(null, null, 0, 0, null, null, null, null, null));
+        model.addAttribute("film", new FilmDto(
+                null,       // id
+                null,       // titre
+                null,       // description
+                0,          // duree
+                null,       // dateSortie
+                0,          // annee
+                null,       // genreId
+                null,       // genreLibelle (Nouveau)
+                null,       // nationaliteId
+                null,       // nationaliteLibelle (Nouveau)
+                null,       // realisateurId
+                null,       // realisateurNomComplet (Nouveau)
+                null,       // acteurIds
+                null,       // photoUrl
+                null        // medias
+        ));
         populateFormModel(model);
         return "films/form";
     }

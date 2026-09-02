@@ -15,5 +15,7 @@ public record MediaDto(
     @NotNull(message = "Le type de média (IMAGE, VIDEO, DOCUMENT) est obligatoire.")
     TypeMedia typeMedia,
 
-    Long filmId
+    Long filmId,
+    String thumbnailUrl
+
 ) {}
