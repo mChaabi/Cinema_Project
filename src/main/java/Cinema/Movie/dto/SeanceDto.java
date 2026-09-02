@@ -1,5 +1,6 @@
 package Cinema.Movie.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -23,6 +24,18 @@ public record SeanceDto(
         @NotNull(message = "L'identifiant du film est obligatoire.")
         Long filmId,
 
+        @NotBlank(message = "Le titre du film est obligatoire.")
+        String filmTitre,
+
+        @NotBlank(message = "L'URL de la photo du film est obligatoire.")
+        String filmPhotoUrl,
+
         @NotNull(message = "L'identifiant de la salle est obligatoire.")
-        Long salleId
+        Long salleId,
+
+        @NotNull(message = "Le numéro de la salle est obligatoire.")
+        Integer salleNumero,
+
+        @NotNull(message = "La capacité de la salle est obligatoire.")
+        Integer salleCapacite
 ) {}

@@ -1,13 +1,22 @@
+// dto/ReservationResponseDto.java
 package Cinema.Movie.dto;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public record ReservationResponseDto(
         Long id,
-        Long seanceId,
-        Long customerId,
-        int nbrPlaces,
         LocalDateTime dateReservation,
-        List<SiegeResponseDto> sieges
+        Integer nbrPlaces,
+        String statut,
+        Long seanceId,
+        String filmTitre,
+        String filmPhotoUrl,
+        Integer salleNumero,
+        String dateProjection,
+        String heureDebut,
+        List<String> siegesNumeros,
+        BigDecimal montantPaye,
+        String statutPaiement
 ) {}

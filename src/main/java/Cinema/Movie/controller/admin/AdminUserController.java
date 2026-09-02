@@ -18,9 +18,8 @@ public class AdminUserController {
 
     @Autowired
     private UserService userService;
-
     private UserDto toDto(User user) {
-        return new UserDto(user.getId(), user.getUsername(), user.getEmail(), null, user.getRole());
+        return new UserDto(user.getId(), user.getUsername(), user.getEmail(), null, user.getRole(), user.getPhotoUrl());
     }
 
     private User toEntity(UserDto dto) {
@@ -29,7 +28,8 @@ public class AdminUserController {
         user.setUsername(dto.username());
         user.setEmail(dto.email());
         user.setPassword(dto.password());
-        user.setRole(Role.ADMIN); 
+        user.setRole(Role.ADMIN);
+        user.setPhotoUrl(dto.photoUrl());
         return user;
     }
 
@@ -45,7 +45,7 @@ public class AdminUserController {
 
     @GetMapping("/add")
     public String showAddForm(Model model) {
-        model.addAttribute("user", new UserDto(null, "", "", "", Role.ADMIN));
+        model.addAttribute("user", new UserDto(null, "", "", "", Role.ADMIN, null));
         return "users/form";
     }
 

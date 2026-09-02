@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/paiements")
+@CrossOrigin(origins = "http://localhost:4200")
 public class PaiementController {
 
     @Autowired

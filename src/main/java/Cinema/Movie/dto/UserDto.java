@@ -23,6 +23,7 @@ public record UserDto(
     // Password can be blank on edit (meaning keep the same), but we validate it in controller if it's an add
     String password,
 
-    Role role
+    Role role,
+    String photoUrl
 ) {}
  

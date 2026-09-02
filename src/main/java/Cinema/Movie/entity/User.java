@@ -50,4 +50,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    @Column(name = "photo_url", columnDefinition = "TEXT")
+    private String photoUrl;
 }

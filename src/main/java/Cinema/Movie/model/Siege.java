@@ -19,4 +19,7 @@ public class Siege {
 
     @Column(name = "is_reserved")
     private Boolean isReserved = false;
+
+    @ManyToOne
+    private Salle salle;
 }

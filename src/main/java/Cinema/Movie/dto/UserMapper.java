@@ -17,7 +17,8 @@ public class UserMapper {
                 user.getUsername(),
                 user.getEmail(),
                 null, // On ne renvoie jamais le mot de passe dans le DTO pour des raisons de sécurité
-                user.getRole()
+                user.getRole(),
+                user.getPhotoUrl()
         );
     }
 
@@ -32,6 +33,7 @@ public class UserMapper {
         user.setEmail(dto.email());
         user.setPassword(dto.password());
         user.setRole(dto.role());
+        user.setPhotoUrl(dto.photoUrl());
         return user;
     }
 }

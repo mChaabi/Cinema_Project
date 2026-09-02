@@ -20,21 +20,30 @@ public class SiegeController {
     @GetMapping
     public List<SiegeMapper.SiegeDto> getAllSieges() {
         return siegeService.getAllSieges().stream()
-                .map(SiegeMapper::toDto)
+                .map(siege -> SiegeMapper.toDto(
+                        siege,
+                        siege.getIsReserved() != null ? siege.getIsReserved() : false
+                ))
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<SiegeMapper.SiegeDto> getSiegeById(@PathVariable Long id) {
         return siegeService.getSiegeById(id)
-                .map(siege -> ResponseEntity.ok(SiegeMapper.toDto(siege)))
+                .map(siege -> ResponseEntity.ok(SiegeMapper.toDto(
+                        siege,
+                        siege.getIsReserved() != null ? siege.getIsReserved() : false
+                )))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/seance/{seanceId}")
     public List<SiegeMapper.SiegeDto> getSiegesBySeance(@PathVariable Long seanceId) {
         return siegeService.getSiegesBySeance(seanceId).stream()
-                .map(SiegeMapper::toDto)
+                .map(siege -> SiegeMapper.toDto(
+                        siege,
+                        siege.getIsReserved() != null ? siege.getIsReserved() : false
+                ))
                 .collect(Collectors.toList());
     }
 
@@ -42,7 +51,7 @@ public class SiegeController {
     public SiegeMapper.SiegeDto createSiege(@RequestBody SiegeMapper.SiegeDto siegeDto) {
         Siege siege = SiegeMapper.toEntity(siegeDto);
         Siege savedSiege = siegeService.saveSiege(siege);
-        return SiegeMapper.toDto(savedSiege);
+        return SiegeMapper.toDto(savedSiege, false); // ✅ Se le pasa el booleano requerido
     }
 
     @DeleteMapping("/{id}")

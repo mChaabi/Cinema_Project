@@ -28,7 +28,7 @@ public class UserController {
     private UserRepository userRepository;
     @Autowired
     private UserMapper userMapper;
-    @Autowired 
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @GetMapping
@@ -44,10 +44,9 @@ public class UserController {
         if (user == null) {
             return ResponseEntity.notFound().build();
         }
-        user.setPassword(null); // Never expose the password
+        user.setPassword(null); // Nunca exponer la contraseña
         return ResponseEntity.ok(user);
     }
-
 
     @PostMapping
     public ResponseEntity<?> createUser(@Valid @RequestBody User user) {
@@ -65,25 +64,22 @@ public class UserController {
         }
 
         User saved = userService.save(user);
-        saved.setPassword(null); 
+        saved.setPassword(null);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
-    
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
         User user = userRepository.findByUsername(loginRequest.username()).orElse(null);
 
-        // Si el usuario existe y la contraseña encriptada coincide
         if (user != null && passwordEncoder.matches(loginRequest.password(), user.getPassword())) {
             user.setPassword(null);
             return ResponseEntity.ok(user);
         }
 
-        // Respuesta en JSON si falla el login
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(Map.of("message", "Nom d'utilisateur ou mot de passe incorrect."));
     }
-
 
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
@@ -100,16 +96,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/me")
-    public UserDto getCurrentUser(Authentication authentication) {
-        if (authentication == null) {
-            throw new RuntimeException("No autenticado"); // ¿esto se está disparando?
-        }
-        String username = authentication.getName();
-        User user = userService.findByUsername(username);
-        return userMapper.toDto(user);
-    }
-
+    // Método para actualizar el perfil mediante Authentication
     @PutMapping("/me")
     public UserDto updateCurrentUser(Authentication authentication, @RequestBody UpdateProfileDto dto) {
         String username = authentication.getName();
@@ -122,6 +109,4 @@ public class UserController {
         userService.changePassword(authentication.getName(), dto.currentPassword(), dto.newPassword());
         return ResponseEntity.ok().build();
     }
-
 }
- 

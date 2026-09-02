@@ -42,7 +42,7 @@ public class AdminSeanceController {
 
     @GetMapping("/add")
     public String showAddForm(Model model) {
-        model.addAttribute("seance", new SeanceDto(null, null, null, null, null, null));
+        model.addAttribute("seance", new SeanceDto(null, null, null, null, null, null, null, null, null, null));
         model.addAttribute("films", filmService.getListAll());
         model.addAttribute("salles", salleService.getListAll());
         return "seances/form";

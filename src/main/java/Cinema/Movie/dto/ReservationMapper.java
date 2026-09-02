@@ -22,7 +22,7 @@ public class ReservationMapper {
 
         List<SiegeMapper.SiegeDto> siegeDtos = reservation.getSieges() != null ?
                 reservation.getSieges().stream()
-                        .map(SiegeMapper::toDto)
+                        .map(siege -> SiegeMapper.toDto(siege, true)) // ✅ Solución con lambda
                         .collect(Collectors.toList())
                 : List.of();
 

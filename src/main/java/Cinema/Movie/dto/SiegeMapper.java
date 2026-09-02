@@ -6,15 +6,14 @@ public class SiegeMapper {
 
     public record SiegeDto(Long id, String numero, Long seanceId, Boolean isReserved) {}
 
-    public static SiegeDto toDto(Siege siege) {
+    public static SiegeDto toDto(Siege siege, boolean isReserved) {
         if (siege == null) return null;
         return new SiegeDto(
                 siege.getId(),
                 siege.getNumero(),
-                siege.getSeanceId(),
-                siege.getIsReserved()
-        );
-    }
+                siege.getSeanceId(), // El Long seanceId que espera la 3ª posición
+                isReserved           // El Boolean que espera la 4ª posición
+        );}
 
     public static Siege toEntity(SiegeDto dto) {
         if (dto == null) return null;

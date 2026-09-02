@@ -1,6 +1,7 @@
 package Cinema.Movie.controller;
 import Cinema.Movie.dto.SeanceDto;
 import Cinema.Movie.dto.SeanceMapper;
+import Cinema.Movie.dto.SiegeMapper;
 import Cinema.Movie.model.Seance;
 import Cinema.Movie.service.SeanceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,6 @@ public class SeanceController {
                .map(seanceMapper::toDto)
                .collect(Collectors.toList());
    }
-   @GetMapping("/{id}")
-   public SeanceDto getSeanceById(@PathVariable Long id) {
-       return seanceMapper.toDto(seanceService.get(id));
-   }
    @PostMapping
    public SeanceDto addSeance(@RequestBody SeanceDto seanceDto) {
        Seance seance = seanceMapper.toEntity(seanceDto);
@@ -41,4 +38,19 @@ public class SeanceController {
    public void deleteSeance(@PathVariable Long id) {
        seanceService.delete(id);
    }
+
+    @GetMapping("/film/{filmId}")
+    public List<SeanceDto> getByFilm(@PathVariable Long filmId) {
+        return seanceService.getSeancesByFilm(filmId);
+    }
+
+    @GetMapping("/{id}")
+    public SeanceDto getById(@PathVariable Long id) {
+        return seanceService.getSeanceById(id);
+    }
+
+    @GetMapping("/{id}/sieges")
+    public List<SiegeMapper.SiegeDto> getSieges(@PathVariable Long id) {
+        return seanceService.getSiegesAvecStatut(id);
+    }
 }

@@ -17,4 +17,5 @@ import Cinema.Movie.model.Seance;
 @Repository
 public interface SeanceRepository extends JpaRepository<Seance, Long> {
 	List<Seance> findByDateProjection(@Temporal(TemporalType.DATE) Date dateProjection);
+	List<Seance> findByFilmId(Long filmId);
 }

@@ -1,6 +1,7 @@
 package Cinema.Movie.controller.admin;
 
 import Cinema.Movie.dto.UserDto;
+import Cinema.Movie.dto.UserMapper;
 import Cinema.Movie.entity.Role;
 import Cinema.Movie.entity.User;
 import Cinema.Movie.service.UserService;
@@ -18,19 +19,15 @@ public class AdminCustomersController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserMapper userMapper;
 
     private UserDto toDto(User user) {
-    	return new UserDto(user.getId(), user.getUsername(), user.getEmail(), (String) null, user.getRole());
+        return UserMapper.toDto(user);
     }
 
     private User toEntity(UserDto dto) {
-        User user = new User();
-        user.setId(dto.id());
-        user.setUsername(dto.username());
-        user.setEmail(dto.email());
-        user.setPassword(dto.password());
-        user.setRole(Role.USER); 
-        return user;
+        return UserMapper.toEntity(dto);
     }
 
     @GetMapping
@@ -46,10 +43,9 @@ public class AdminCustomersController {
 
     @GetMapping("/add")
     public String showAddForm(Model model) {
-        model.addAttribute("customer", new UserDto(null, "", "", "", Role.USER));
+        model.addAttribute("customer", new UserDto(null, "", "", "", Role.USER, null));
         return "customers/form";
     }
-
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") Long id, Model model) {
         User user = userService.get(id);
