@@ -1,5 +1,6 @@
 package Cinema.Movie.controller.admin;
 
+import Cinema.Movie.entity.Role;
 import Cinema.Movie.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,9 +32,11 @@ public class AdminDashboardController {
         long totalFilms = filmService.count();
         long totalSalles = salleService.count();
         long totalSeances = seanceService.count();
+
+
         long totalCustomers = userService.getListAll().stream()
-            .filter(u -> "USER".equals(u.getRole()))
-            .count();
+                .filter(u -> u.getRole() == Role.USER)
+                .count();
         
         long totalActeurs = personneService.getListAll().stream()
             .filter(p -> p.getTypePersonne() == Cinema.Movie.model.Personne.TypePersonne.ACTEUR)

@@ -63,7 +63,7 @@ public class Film extends AbstractModel<Long> {
     @JoinColumn(name = "DIRECTOR_ID")
     private Personne realisateur;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = { CascadeType.MERGE })
     @JoinTable(
       name = "FILM_ACTEUR",
       joinColumns = @JoinColumn(name = "FILM_ID", referencedColumnName = "ID"),

@@ -104,9 +104,9 @@ public class UserController {
         return UserMapper.toDto(updated);
     }
 
-    @PutMapping("/me/password")
-    public ResponseEntity<Void> changePassword(Authentication authentication, @RequestBody ChangePasswordDto dto) {
-        userService.changePassword(authentication.getName(), dto.currentPassword(), dto.newPassword());
+    @PutMapping("/{id}/password")
+    public ResponseEntity<Void> changePassword(@PathVariable Long id, @RequestBody ChangePasswordDto dto) {
+        userService.changePasswordById(id, dto.currentPassword(), dto.newPassword());
         return ResponseEntity.ok().build();
     }
 }

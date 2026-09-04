@@ -57,16 +57,15 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    // Méthode manquante 3 : Changer le mot de passe
-    public void changePassword(String username, String currentPassword, String newPassword) {
-        User user = findByUsername(username);
+    // UserService.java — nuevo método
+    public void changePasswordById(Long id, String currentPassword, String newPassword) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
 
-        // Vérifier si l'ancien mot de passe correspond
         if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
-            throw new RuntimeException("Le mot de passe actuel est incorrect");
+            throw new RuntimeException("Mot de passe actuel incorrect.");
         }
 
-        // Encoder et enregistrer le nouveau mot de passe
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
     }

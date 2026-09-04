@@ -17,4 +17,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
    @Query("SELECT SUM(r.nbrPlaces) FROM Reservation r JOIN Seance s ON r.seanceId = s.id WHERE s.salle.id = :salleId")
    Integer countPlacesReserveesToday(@Param("salleId") Long salleId);
+
+
 }
